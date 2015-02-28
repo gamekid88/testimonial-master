@@ -5,7 +5,7 @@
 * Description: Use this plugin to enter and display testimonials
 * Author: Frank Corso
 * Author URI: http://mylocalwebstop.com
-* Version: 0.1.0
+* Version: 0.2.0
 * Text Domain: testmonial-master
 * Domain Path: /languages
 *
@@ -16,7 +16,7 @@
 * You understand that you install, operate, and uninstall the plugin at your own discretion and risk.
 *
 * @author Frank Corso
-* @version 0.1.0
+* @version 0.2.0
 * @copyright 2015 My Local Webstop
 */
 
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 *
 * When loaded, it loads the included plugin files and add functions to hooks or filters. The class also handles the admin menu
 *
-* @since 0.1.0
+* @since 0.2.0
 */
 class MLWTestimonialMaster
 {
@@ -43,7 +43,7 @@ class MLWTestimonialMaster
   	  *
   	  * Call functions within class
   	  *
-  	  * @since 0.1.0
+  	  * @since 0.2.0
   	  * @uses MLWTestimonialMaster::load_dependencies() Loads required filed
   	  * @uses MLWTestimonialMaster::add_hooks() Adds actions to hooks and filters
   	  * @return void
@@ -57,7 +57,7 @@ class MLWTestimonialMaster
     /**
   	  * Load File Dependencies
   	  *
-  	  * @since 0.1.0
+  	  * @since 0.2.0
   	  * @return void
   	  */
     public function load_dependencies()
@@ -68,6 +68,7 @@ class MLWTestimonialMaster
       include("php/tm_update.php");
       include("php/tm_widgets.php");
       include("php/tm_help_page.php");
+      include("php/tm_about_page.php");
     }
 
     /**
@@ -75,7 +76,7 @@ class MLWTestimonialMaster
   	  *
   	  * Adds functions to relavent hooks and filters
   	  *
-  	  * @since 0.1.0
+  	  * @since 0.2.0
   	  * @return void
   	  */
     public function add_hooks()
@@ -93,7 +94,7 @@ class MLWTestimonialMaster
      *
      * Creates custom post type for plugins
      *
-     * @since 0.1.0
+     * @since 0.2.0
      */
     public function register_post_types()
     {
@@ -134,25 +135,23 @@ class MLWTestimonialMaster
   	  *
   	  * Creates the admin menu and pages for the plugin and attaches functions to them
   	  *
-  	  * @since 0.1.0
+  	  * @since 0.2.0
   	  * @return void
   	  */
   	public function setup_admin_menu()
   	{
   		if (function_exists('add_menu_page'))
   		{
-        add_menu_page('Testimonial Master', 'Testimonials', 'manage_options', __FILE__, array('TMAdminPage','generate_page'), 'dashicons-star-filled');
-    		add_submenu_page(__FILE__, 'Help', 'Help', 'manage_options', 'tm_help', array('TMHelpPage','generate_page'));
+        add_menu_page('Testimonial Master', __('Testimonials','testmonial-master'), 'manage_options', __FILE__, array('TMAdminPage','generate_page'), 'dashicons-star-filled');
+    		add_submenu_page(__FILE__, __('Help','testmonial-master'), __('Help','testmonial-master'), 'manage_options', 'tm_help', array('TMHelpPage','generate_page'));
       }
-      /*
       add_dashboard_page(
-				__( 'WPDT About', 'wordpress-developer-toolkit' ),
-				__( 'WPDT About', 'wordpress-developer-toolkit' ),
+				__( 'TM About', 'testmonial-master' ),
+				__( 'TM About', 'testmonial-master' ),
 				'manage_options',
-				'wpdt_about',
-				array('WPDTAboutPage', 'generate_page')
+				'tm_about',
+				array('TMAboutPage', 'generate_page')
 			);
-      */
     }
 
     /**
@@ -160,18 +159,18 @@ class MLWTestimonialMaster
   	 *
   	 * Removes the update, quiz settings, and quiz results pages from the Quiz Menu
   	 *
-  	 * @since 4.1.0
+  	 * @since 0.2.0
   	 * @return void
   	 */
   	public function admin_head()
   	{
-  		//remove_submenu_page( 'index.php', 'wpdt_about' );
+  		remove_submenu_page( 'index.php', 'tm_about' );
   	}
 
     /**
   	  * Loads the plugin language files
   	  *
-  	  * @since 0.1.0
+  	  * @since 0.2.0
   	  * @return void
   	  */
   	public function setup_translations()

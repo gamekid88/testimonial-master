@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+
 /**
 * This class is the main class of the plugin
 *
@@ -55,11 +59,16 @@ class TMHelpPage
 		 */
 		public static function generate_page()
 		{
+      if ( !current_user_can('moderate_comments') ) {
+        echo __("You do not have proper authority to access this page",'wordpress-developer-toolkit');
+        return '';
+      }
 			wp_enqueue_style( 'tm_admin_style', plugins_url( '../css/admin.css' , __FILE__ ) );
       wp_enqueue_script( 'tm_admin_script', plugins_url( '../js/admin.js' , __FILE__ ) );
 
 			///Creates the widgets
 			$mlw_tm_version = get_option('mlw_tm_version');
+      add_meta_box("wpss_mrts", 'Need Help?', "tm_plugin_help_box", "mlw_tm_wpss7");
 			add_meta_box("wpss_mrts", 'Support', "mlw_tm_wpss_mrt_meta_box3", "mlw_tm_wpss3");
 			add_meta_box("wpss_mrts", 'My Local Webstop Services', "mlw_tm_dashboard_services", "mlw_tm_wpss6");
 			add_meta_box("wpss_mrts", 'Contribution', "mlw_tm_wpss_mrt_meta_box4", "mlw_tm_wpss4");
@@ -69,29 +78,42 @@ class TMHelpPage
 				<h2>Testimonial Master Help And Support</h2>
 
 				<h3>Version <?php echo $mlw_tm_version; ?></h3>
-				<?php echo mlw_tm_show_adverts(); ?>
+				<?php echo tm_adverts(); ?>
 
-				<div style="float:left; width:33%;" class="inner-sidebar1">
-					<?php do_meta_boxes('mlw_tm_wpss3','advanced','');  ?>
+				<div style="float:left; width:50%;" class="inner-sidebar1">
+					<?php do_meta_boxes('mlw_tm_wpss7','advanced','');  ?>
 				</div>
 
-				<div style="float:right; width:33%; " class="inner-sidebar1">
-					<?php do_meta_boxes('mlw_tm_wpss5','advanced',''); ?>
-				</div>
-
-				<div style="float:right; width:33%; " class="inner-sidebar1">
-					<?php if ( get_option('mlw_advert_shows') == 'true' ) {do_meta_boxes('mlw_tm_wpss6','advanced','');} ?>
-				</div>
-
-				<!--<div style="clear:both"></div>-->
-
-				<div style="float:left; width:60%; " class="inner-sidebar1">
+        <div style="float:right; width:50%; " class="inner-sidebar1">
 					<?php if ( get_option('mlw_advert_shows') == 'true' ) {do_meta_boxes('mlw_tm_wpss4','advanced','');} ?>
 				</div>
 
+        <div style="float:left; width:50%;" class="inner-sidebar1">
+					<?php do_meta_boxes('mlw_tm_wpss3','advanced','');  ?>
+				</div>
+
+        <div style="float:right; width:50%; " class="inner-sidebar1">
+					<?php if ( get_option('mlw_advert_shows') == 'true' ) {do_meta_boxes('mlw_tm_wpss6','advanced','');} ?>
+				</div>
+
+				<div style="float:right; width:50%; " class="inner-sidebar1">
+					<?php do_meta_boxes('mlw_tm_wpss5','advanced',''); ?>
+				</div>
 			</div>
 			<?php
 		}
+}
+
+function tm_plugin_help_box()
+{
+  ?>
+	<p><?php _e('Need help with the plugin? Try any of the following:', 'quiz-master-next'); ?></p>
+	<ul>
+		<li>Fill out the form in the Support widget to send us an email</li>
+		<li>Fill out the form on our <a href="http://mylocalwebstop.com/contact-us/">Contact Us Page</a></li>
+		<li>Create a topic in the <a href="https://wordpress.org/support/plugin/testimonial-master">WordPress Support Forums</a></li>
+	</ul>
+	<?php
 }
 
 function mlw_tm_dashboard_services()
@@ -99,11 +121,11 @@ function mlw_tm_dashboard_services()
 	?>
 	<div>
 		<h2>Plugin Premium Support</h2>
-		<p>Plugin Premium Support includes 1 year of priority support, priority feature requests, and access to WordPress training videos.</p>
-		<p>You can also purchase 1-on-1 training to go with your support!</p>
+		<p>Get access to premium support and always be a priority in our support. We will provide technical support and even access your site to solve your problems.
+      With premium support, we will answer your responses as quickly as possible and your feature requests will be priorities in our future updates.</p>
 		<p>For details, visit our <a href="http://mylocalwebstop.com/downloads/plugin-premium-support/" target="_blank" style="color:blue;">Plugin Premium Support</a> page.</p>
 		<hr />
-		<h2>Plugin Premium Support</h2>
+		<h2>WordPress Installation Services</h2>
 		<p>Are you setting up a new WordPress? Or, are you setting up a new website? WordPress is one of the most popular systems used around the world to create and
 			manage websites. However, sometimes it can be overwhelming or even confusing as to how to set up your server, install WordPress, and get everything
 			configured to exactly how you want it.</p>
@@ -111,8 +133,9 @@ function mlw_tm_dashboard_services()
 		<p>For details, visit our <a href="http://mylocalwebstop.com/downloads/new-wordpress-installation/" target="_blank" style="color:blue;">New WordPress Installation</a> page.</p>
 		<hr />
 		<h2>WordPress Maintenance Services</h2>
-		<p>Our maintenance service includes around the clock security monitoring, off-site backups, plugin updates, theme updates, WordPress updates, WordPress training videos, and a Monthly Status Report.</p>
-		<p>Up to 30 minutes of support, consultation, and training included each month.</p>
+		<p>If you currently have a WordPress site, you know how time consuming and difficult it may be to keep it maintained. You have to keep the SEO optimized,
+      keep WordPress updated, keep your plugins and themes updated, have regular backups in place, and not to mention keeping the site secure.</p>
+    <p>Let us take care of your maintenance for you. You have more important things to do instead of the technical tasks.</p>
 		<p>Visit our <a href="http://mylocalwebstop.com/downloads/wordpress-maintenance/" target="_blank" style="color:blue;">WordPress Maintenance Services</a> page for details.</p>
 	</div>
 	<?php
@@ -151,7 +174,7 @@ function mlw_tm_wpss_mrt_meta_box3()
 	?>
 	<div class='mlw_tm_email_support'>
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?page=tm_help" method='post' name='emailForm' onsubmit='return tm_validateForm()'>
-	<input type='hidden' name='action' value='update' />
+	<input type='hidden' name='support_email' value='confirmation' />
 	<table>
 	<tr>
 	<td>If there is something you would like to suggest to add or even if you just want
@@ -179,13 +202,14 @@ function mlw_tm_wpss_mrt_meta_box3()
 	<td align='left'><TEXTAREA NAME="message" COLS=40 ROWS=6></TEXTAREA></td>
 	</tr>
 	<tr>
-	<td align='left'><input type='submit' value='Send Email' /></td>
+	<td align='left'><input type='submit' class="button-primary" value='Send Email' /></td>
 	</tr>
 	<tr>
 	<td align='left'></td>
 	</tr>
 	</table>
 	</form>
+  <p>Disclaimer: In order to better assist you, this form will also send some information about your WordPress installation along with your message.</p>
 	</div>
 	<?php
 }
@@ -195,7 +219,7 @@ function mlw_tm_wpss_mrt_meta_box4()
 	?>
 	<p>	Testimonial Master is and always will be a free plugin. I have spent a lot of time and effort developing and maintaining this plugin. If it has been beneficial to your site, please consider supporting this plugin by making a donation.</p>
 	<div class="donation">
-		<a href="http://mylocalwebstop.com/downloads/donation-service-payment/" class="buton">Donate</a>
+		<a href="http://mylocalwebstop.com/downloads/donation-service-payment/" target="_blank" class="button">Donate</a>
 	</div>
 	<p>Thank you to those who have contributed so far!</p>
 	<?php
@@ -275,7 +299,7 @@ function tm_get_system_info()
 	$tm_sys_info .= "PHP : ".PHP_VERSION."<br />";
 	$tm_sys_info .= "MySQL : ".$wpdb->db_version()."<br />";
 	$tm_sys_info .= "Webserver : ".$_SERVER['SERVER_SOFTWARE']."<br />";
-	
+
 	return $tm_sys_info;
 }
 ?>

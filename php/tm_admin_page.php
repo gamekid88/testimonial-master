@@ -1,4 +1,7 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
 * This class is the main class of the plugin
 *
@@ -66,7 +69,7 @@ class TMAdminPage
       {
         $new_testimonial = sanitize_text_field($_POST["new_testimonial"]);
 				$who = sanitize_text_field($_POST["who"]);
-				$where = sanitize_text_field($_POST["where"]);
+				$where = esc_url_raw($_POST["where"]);
         global $current_user;
   			get_currentuserinfo();
   			$new_testimonial_args = array(
@@ -78,15 +81,16 @@ class TMAdminPage
   			);
   			$new_testimonial_id = wp_insert_post( $new_testimonial_args );
   			add_post_meta( $new_testimonial_id, 'link', $where, true );
-        do_action('tm_new_testimonial', $plugin_info);
+        do_action('tm_new_testimonial', $new_testimonial_id);
       }
 
       if (isset($_POST["edit_testimonial"]) && wp_verify_nonce( $_POST['edit_testimonial_nonce'], 'edit_testimonial'))
       {
+        $testimonial_id = intval($_POST["edit_testimonial_id"]);
         $testimonial = sanitize_text_field($_POST["edit_testimonial"]);
-				$who = sanitize_text_field($_POST["who"]);
-				$where = sanitize_text_field($_POST["where"]);
-        $my_query = new WP_Query( array('post_type' => 'plugin', 'p' => $testimonial_id) );
+				$who = sanitize_text_field($_POST["edit_who"]);
+				$where = esc_url_raw($_POST["edit_where"]);
+        $my_query = new WP_Query( array('post_type' => 'testimonial', 'p' => $testimonial_id) );
   			if( $my_query->have_posts() )
   			{
   			  while( $my_query->have_posts() )
@@ -107,7 +111,7 @@ class TMAdminPage
 			if (isset($_POST["delete_testimonial"]) && wp_verify_nonce( $_POST['delete_testimonial_nonce'], 'delete_testimonial'))
       {
         $testimonial_id = intval($_POST["delete_testimonial"]);
-        $my_query = new WP_Query( array('post_type' => 'plugin', 'p' => $testimonial_id) );
+        $my_query = new WP_Query( array('post_type' => 'testimonial', 'p' => $testimonial_id) );
   			if( $my_query->have_posts() )
   			{
   			  while( $my_query->have_posts() )
@@ -121,7 +125,7 @@ class TMAdminPage
   			  }
   			}
         wp_reset_postdata();
-        do_action('tm_delete_tesimonial', $plugin_id);
+        do_action('tm_delete_tesimonial', $testimonial_id);
       }
 
 			$testimonial_array = array();
@@ -147,16 +151,16 @@ class TMAdminPage
           <h3>Available Shortcodes</h3>
           <div class="templates">
       			<div class="templates_shortcode">
-      				<span class="templates_name">[testimonials_all]</span> - <?php _e("Outputs the plugin's description where ? is the id of the plugin below", 'wordpress-developer-toolkit'); ?>
+      				<span class="templates_name">[testimonials_all]</span> - <?php _e("Outputs all of the testimonials", 'wordpress-developer-toolkit'); ?>
       			</div>
             <div class="templates_shortcode">
-      				<span class="templates_name">[plugin_link id=? link=?]</span> - <?php _e("Outputs the link to download the plugin where ? is the id of the plugin below and the text for the link", 'wordpress-developer-toolkit'); ?>
+      				<span class="templates_name">[testimonials_random]</span> - <?php _e("Outputs one testimonial chosen at random", 'wordpress-developer-toolkit'); ?>
       			</div>
-            <?php do_action('wpdt_extra_shortcodes'); ?>
+            <?php do_action('tm_extra_shortcodes'); ?>
           </div>
           <div style="clear:both;"></div>
           <br />
-          <h3>Your Testimonials<a id="new_quiz_button" href="#new_testimonial_form" class="add-new-h2">Add New Testimonial</a></h3>
+          <h3>Your Testimonials<a id="new_quiz_button" onclick="jQuery('#edit_testimonial_form').hide();jQuery('#new_testimonial_form').show();" href="#new_testimonial_form" class="add-new-h2">Add New Testimonial</a></h3>
           <table class="widefat">
             <thead>
               <tr>
@@ -174,17 +178,17 @@ class TMAdminPage
     						else $alternate = " class=\"alternate\"";
                 echo "<tr{$alternate}>";
                 echo "<td>";
-                  echo $testimonial["name"];
-                  echo "<div class=\"row-actions\">
-                        <a class='linkOptions' onclick=\"jQuery('#edit_testimonial_form').show();jQuery('#new_testimonial_form').hide();\" href='#edit_testimonial_form'>".__('Edit', 'wordpress-developer-toolkit')."</a>
+                  echo "<span id='name_".$testimonial["id"]."'>".esc_html($testimonial["name"])."</span>";
+                  echo "<div class=\"row-actions testimonial_actions\">
+                        <a class='linkOptions' onclick=\"tm_edit_testimonial(".$testimonial["id"].");\" href='#edit_testimonial_form'>".__('Edit', 'wordpress-developer-toolkit')."</a> |
       						      <a class='linkOptions linkDelete' onclick=\"jQuery('#want_to_delete_".$testimonial["id"]."').show();\" href='#'>".__('Delete', 'wordpress-developer-toolkit')."</a>
                         <div id='want_to_delete_".$testimonial["id"]."' style='display:none;'>
                           <span class='table_text'>".__('Are you sure?','wordpress-developer-toolkit')."</span> <a href='#' onclick=\"tm_delete_testimonial(".$testimonial["id"].");\">".__('Yes','wordpress-developer-toolkit')."</a> | <a href='#' onclick=\"jQuery('#want_to_delete_".$testimonial["id"]."').hide();\">".__('No','wordpress-developer-toolkit')."</a>
                         </div>
       						</div>";
                 echo "</td>";
-                echo "<td>".$testimonial["link"]."</td>";
-                echo "<td>".$testimonial["content"]."</td>";
+                echo "<td><span id='link_".$testimonial["id"]."'>".esc_url($testimonial["link"])."</span></td>";
+                echo "<td><span id='content_".$testimonial["id"]."'>".esc_html($testimonial["content"])."</span></td>";
                 echo "</tr>";
               }
               ?>
@@ -199,26 +203,45 @@ class TMAdminPage
           </table>
           <form action="" method="post" class="testimonial_form" id="new_testimonial_form">
             <h3><?php _e('Add New Testimonial','wordpress-developer-toolkit'); ?></h3>
-            <label class="testimonial_form_label"><?php _e("Testimonial",'wordpress-developer-toolkit'); ?></label>
-						<textarea class="testimonial_form_input" name="new_testimonial"></textarea><br />
-						<label class="testimonial_form_label"><?php _e("From Who",'wordpress-developer-toolkit'); ?></label>
-            <input type="text" name="who" class="testimonial_form_input"/><br />
-						<label class="testimonial_form_label"><?php _e("From URL",'wordpress-developer-toolkit'); ?></label>
-            <input type="text" name="where" class="testimonial_form_input"/><br />
-            <input type="submit" value="<?php _e('Add Testimonial','wordpress-developer-toolkit'); ?>" class="button-primary testimonial_form_button"/>
-            <?php wp_nonce_field('add_testimonial','add_testimonial_nonce'); ?>
+            <div class="testimonial_form_row">
+              <label class="testimonial_form_label"><?php _e("Testimonial",'wordpress-developer-toolkit'); ?></label>
+  						<textarea class="testimonial_form_textarea" name="new_testimonial"></textarea>
+            </div>
+            <div class="testimonial_form_row">
+  						<label class="testimonial_form_label"><?php _e("From Who",'wordpress-developer-toolkit'); ?></label>
+              <input type="text" name="who" class="testimonial_form_input"/>
+            </div>
+            <div class="testimonial_form_row">
+  						<label class="testimonial_form_label"><?php _e("From URL",'wordpress-developer-toolkit'); ?></label>
+              <input type="text" name="where" class="testimonial_form_input"/>
+            </div>
+            <div class="testimonial_form_row">
+              <input type="submit" value="<?php _e('Add Testimonial','wordpress-developer-toolkit'); ?>" class="button-primary testimonial_form_button"/>
+              <?php wp_nonce_field('add_testimonial','add_testimonial_nonce'); ?>
+            </div>
           </form>
+
           <form action="" method="post" class="testimonial_form" id="edit_testimonial_form" style="display:none;">
             <h3><?php _e('Edit Testimonial','wordpress-developer-toolkit'); ?></h3>
-            <label class="testimonial_form_label"><?php _e("Testimonial",'wordpress-developer-toolkit'); ?></label>
-						<textarea class="testimonial_form_input" id="edit_testimonial" name="edit_testimonial"></textarea><br />
-						<label class="testimonial_form_label"><?php _e("From Who",'wordpress-developer-toolkit'); ?></label>
-            <input type="text" name="who" id="who" class="testimonial_form_input"/><br />
-						<label class="testimonial_form_label"><?php _e("From URL",'wordpress-developer-toolkit'); ?></label>
-            <input type="text" name="where" id="where" class="testimonial_form_input"/><br />
-            <input type="submit" value="<?php _e('Edit Testimonial','wordpress-developer-toolkit'); ?>" class="button-primary testimonial_form_button"/>
-            <?php wp_nonce_field('edit_testimonial','edit_testimonial_nonce'); ?>
+            <div class="testimonial_form_row">
+              <label class="testimonial_form_label"><?php _e("Testimonial",'wordpress-developer-toolkit'); ?></label>
+  						<textarea class="testimonial_form_textarea" id="edit_testimonial" name="edit_testimonial"></textarea>
+            </div>
+            <div class="testimonial_form_row">
+  						<label class="testimonial_form_label"><?php _e("From Who",'wordpress-developer-toolkit'); ?></label>
+              <input type="text" name="edit_who" id="edit_who" class="testimonial_form_input"/>
+            </div>
+            <div class="testimonial_form_row">
+  						<label class="testimonial_form_label"><?php _e("From URL",'wordpress-developer-toolkit'); ?></label>
+              <input type="text" name="edit_where" id="edit_where" class="testimonial_form_input"/>
+            </div>
+            <div class="testimonial_form_row">
+              <input type="hidden" name="edit_testimonial_id" id="edit_testimonial_id" value="" />
+              <input type="submit" value="<?php _e('Edit Testimonial','wordpress-developer-toolkit'); ?>" class="button-primary testimonial_form_button"/>
+              <?php wp_nonce_field('edit_testimonial','edit_testimonial_nonce'); ?>
+            </div>
           </form>
+
           <form action="" method="post" name="delete_testimonial_form" style="display:none;">
             <input type="hidden" name="delete_testimonial" id="delete_testimonial" value="" />
             <?php wp_nonce_field('delete_testimonial','delete_testimonial_nonce'); ?>
