@@ -135,12 +135,12 @@ class TMAdminPage
     	  while( $my_query->have_posts() )
     		{
     	    $my_query->the_post();
-          $testimonial_array[] = array(
+          $testimonial_array[] = apply_filters('tm_load_array',array(
             'id' => get_the_ID(),
             'name' => get_the_title(),
             'link' => get_post_meta( get_the_ID(), 'link', true ),
 						'content' => get_the_content()
-          );
+          ));
     	  }
     	}
     	wp_reset_postdata();
@@ -156,6 +156,9 @@ class TMAdminPage
             <div class="templates_shortcode">
       				<span class="templates_name">[testimonials_random]</span> - <?php _e("Outputs one testimonial chosen at random", 'testmonial-master'); ?>
       			</div>
+            <div class="templates_shortcode">
+      				<span class="templates_name">[testimonials_submit]</span> - <?php _e("Adds a form for users to submit testimonials", 'testmonial-master'); ?>
+      			</div>
             <?php do_action('tm_extra_shortcodes'); ?>
           </div>
           <div style="clear:both;"></div>
@@ -167,6 +170,7 @@ class TMAdminPage
                 <th><?php _e('Name','testmonial-master'); ?></th>
                 <th><?php _e('Url','testmonial-master'); ?></th>
                 <th><?php _e('Testimonial','testmonial-master'); ?></th>
+                <?php do_action('tm_table_column_headers'); ?>
               </tr>
             </thead>
             <tbody id="the-list">
@@ -189,6 +193,7 @@ class TMAdminPage
                 echo "</td>";
                 echo "<td><span id='link_".$testimonial["id"]."'>".esc_url($testimonial["link"])."</span></td>";
                 echo "<td><span id='content_".$testimonial["id"]."'>".esc_html($testimonial["content"])."</span></td>";
+                do_action('tm_table_column_value', $testimonial["id"]);
                 echo "</tr>";
               }
               ?>
@@ -198,6 +203,7 @@ class TMAdminPage
                 <th><?php _e('Name','testmonial-master'); ?></th>
                 <th><?php _e('Url','testmonial-master'); ?></th>
                 <th><?php _e('Testimonial','testmonial-master'); ?></th>
+                <?php do_action('tm_table_column_headers'); ?>
               </tr>
             </tfoot>
           </table>
@@ -215,6 +221,7 @@ class TMAdminPage
   						<label class="testimonial_form_label"><?php _e("From URL",'testmonial-master'); ?></label>
               <input type="text" name="where" class="testimonial_form_input"/>
             </div>
+            <?php do_action('tm_new_testimonial_form'); ?>
             <div class="testimonial_form_row">
               <input type="submit" value="<?php _e('Add Testimonial','testmonial-master'); ?>" class="button-primary testimonial_form_button"/>
               <?php wp_nonce_field('add_testimonial','add_testimonial_nonce'); ?>
@@ -235,6 +242,7 @@ class TMAdminPage
   						<label class="testimonial_form_label"><?php _e("From URL",'testmonial-master'); ?></label>
               <input type="text" name="edit_where" id="edit_where" class="testimonial_form_input"/>
             </div>
+            <?php do_action('tm_edit_testimonial_form'); ?>
             <div class="testimonial_form_row">
               <input type="hidden" name="edit_testimonial_id" id="edit_testimonial_id" value="" />
               <input type="submit" value="<?php _e('Edit Testimonial','testmonial-master'); ?>" class="button-primary testimonial_form_button"/>
