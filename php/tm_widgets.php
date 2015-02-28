@@ -52,7 +52,7 @@ class TMRandomWidget extends WP_Widget {
 
    		$shortcode = '';
  			$testimonial_array = array();
-       $my_query = new WP_Query( array('post_type' => 'testimonial') );
+      $my_query = new WP_Query( array('post_type' => 'testimonial') );
      	if( $my_query->have_posts() )
      	{
      	  while( $my_query->have_posts() )
@@ -67,15 +67,17 @@ class TMRandomWidget extends WP_Widget {
      	  }
      	}
      	wp_reset_postdata();
-
- 			$rand_testimonial = array_rand($testimonial_array);
- 			$shortcode .= '"'.esc_html($testimonial_array[$rand_testimonial]["content"]).'"<br />';
- 			$shortcode .= '~'.esc_html($testimonial_array[$rand_testimonial]["name"]);
- 			$link = $testimonial_array[$rand_testimonial]["link"];
- 			if ($link && $link != '')
- 			{
- 				$shortcode .= ", <a href='".esc_url($link)."'>".esc_html($link)."</a>";
- 			}
+      if (count($testimonial_array) > 0)
+      {
+   			$rand_testimonial = array_rand($testimonial_array);
+   			$shortcode .= '"'.esc_html($testimonial_array[$rand_testimonial]["content"]).'"<br />';
+   			$shortcode .= '~'.esc_html($testimonial_array[$rand_testimonial]["name"]);
+   			$link = $testimonial_array[$rand_testimonial]["link"];
+   			if ($link && $link != '')
+   			{
+   				$shortcode .= ", <a href='".esc_url($link)."'>".esc_html($link)."</a>";
+   			}
+      }
 
  			echo $shortcode;
     }
