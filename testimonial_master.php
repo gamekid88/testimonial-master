@@ -32,6 +32,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class MLWTestimonialMaster
 {
     /**
+     * TM Version Number
+     *
+     * @var string
+     * @since 0.2.0
+     */
+    public $version = '0.2.0';
+    /**
   	  * Main Construct Function
   	  *
   	  * Call functions within class
@@ -58,9 +65,9 @@ class MLWTestimonialMaster
       include("php/tm_adverts.php");
       include("php/tm_admin_page.php");
       include("php/tm_shortcodes.php");
-      include("php/mlw_tm_update.php");
+      include("php/tm_update.php");
       include("php/tm_widgets.php");
-      include("php/mlw_tm_help.php");
+      include("php/tm_help_page.php");
     }
 
     /**
@@ -77,10 +84,8 @@ class MLWTestimonialMaster
       add_action('plugins_loaded',  array( $this, 'setup_translations'));
       add_action('admin_head', array( $this, 'admin_head'), 900);
       add_action('init', array( $this, 'register_post_types'));
-      add_action('init', 'mlw_tm_update');
+      add_action('init', 'tm_update');
       add_action('widgets_init', create_function('', 'return register_widget("TMRandomWidget");'));
-      add_shortcode('mlw_tm_all', 'mlw_tm_all_shortcode');
-      add_shortcode('mlw_tm_random', 'mlw_tm_random_shortcode');
     }
 
     /**
@@ -136,8 +141,8 @@ class MLWTestimonialMaster
   	{
   		if (function_exists('add_menu_page'))
   		{
-        add_menu_page('Testimonial Master', 'Testimonials', 'manage_options', __FILE__, 'mlw_tm_generate_admin_page', 'dashicons-star-filled');
-    		add_submenu_page(__FILE__, 'Help', 'Help', 'manage_options', 'mlw_tm_help', 'mlw_tm_generate_help_page');
+        add_menu_page('Testimonial Master', 'Testimonials', 'manage_options', __FILE__, array('TMAdminPage','generate_page'), 'dashicons-star-filled');
+    		add_submenu_page(__FILE__, 'Help', 'Help', 'manage_options', 'tm_help', array('TMHelpPage','generate_page'));
       }
       /*
       add_dashboard_page(
