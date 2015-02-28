@@ -1,6 +1,11 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Creates Random Testimonial Widget
+ *
+ * @since 0.2.0
+ */
 class TMRandomWidget extends WP_Widget {
 
    	// constructor

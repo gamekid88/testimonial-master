@@ -101,7 +101,6 @@ class TMAboutPage
         	<ul>
           </ul>
       	</div>
-
     	</div>
       <?php
     }

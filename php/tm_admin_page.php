@@ -3,11 +3,11 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
-* This class is the main class of the plugin
+* This class generates the main admin page
 *
 * When loaded, it loads the included plugin files and add functions to hooks or filters.
 *
-* @since 0.1.0
+* @since 0.2.0
 */
 class TMAdminPage
 {
@@ -16,7 +16,7 @@ class TMAdminPage
   	  *
   	  * Call functions within class
   	  *
-  	  * @since 0.1.0
+  	  * @since 0.2.0
   	  * @uses TMAdminPage::load_dependencies() Loads required filed
   	  * @uses TMAdminPage::add_hooks() Adds actions to hooks and filters
   	  * @return void
@@ -30,7 +30,7 @@ class TMAdminPage
     /**
   	  * Load File Dependencies
   	  *
-  	  * @since 0.1.0
+  	  * @since 0.2.0
   	  * @return void
   	  */
     public function load_dependencies()
@@ -43,7 +43,7 @@ class TMAdminPage
   	  *
   	  * Adds functions to relavent hooks and filters
   	  *
-  	  * @since 0.1.0
+  	  * @since 0.2.0
   	  * @return void
   	  */
     public function add_hooks()

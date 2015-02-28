@@ -1,6 +1,11 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Generates The Advertisements. Please do not delete this unless purchasing the Advertisements Be Gone addon in our store to help fund further development of this plugin.
+ *
+ * @since 0.2.0
+ */
 function tm_adverts()
 {
   wp_enqueue_style( 'tm_admin_style', plugins_url( '../css/admin.css' , __FILE__ ) );
