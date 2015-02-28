@@ -71,6 +71,9 @@ class TMAboutPage
       			<?php _e('Changelog', 'testmonial-master'); ?></a>
       	</h2>
       	<div id="what_new">
+          <h2 style="margin: 1.1em 0 .2em;font-size: 2.4em;font-weight: 300;line-height: 1.3;text-align: center;">New User Submission Shortcode</h2>
+        	<p style="text-align: center;">The new shortcode allows you to place a form on your website where users can enter in testimonials.</p>
+        	<br />
           <h2 style="margin: 1.1em 0 .2em;font-size: 2.4em;font-weight: 300;line-height: 1.3;text-align: center;">Admin Page Redesign</h2>
         	<p style="text-align: center;">I completely redesigned the admin page. I added a new available shortcode area as well as changed how to edit and add testimonials.</p>
         	<br />
@@ -99,6 +102,13 @@ class TMAboutPage
       	<div id="changelog" style="display: none;">
           <h3><?php echo $version; ?> (March 1, 2015)</h3>
         	<ul>
+            <li>New Shortcode For Allowing Users To Enter Testimonial</li>
+            <li>Admin Page Redesign</li>
+            <li>New Update Page</li>
+            <li>Now Translation Ready</li>
+            <li>In Code: Now Uses Custom Post Types</li>
+            <li>In Code: Rewrote Entire Plugin</li>
+            <li>In Code: Added Various Hooks And Filters For Extending Plugin</li>
           </ul>
       	</div>
     	</div>
