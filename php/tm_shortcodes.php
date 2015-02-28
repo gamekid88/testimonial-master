@@ -159,26 +159,31 @@ class TMShortcodes
   			add_post_meta( $new_testimonial_id, 'link', $where, true );
         do_action('tm_new_testimonial', $new_testimonial_id);
       }
-      $shortcode .= "
+      ob_start();
+      ?>
       <form action='' method='post' class='testimonial_form' id='new_testimonial_form'>
-        <h3>".__('Add New Testimonial','testmonial-master')."</h3>
+        <h3><?php _e('Add New Testimonial','testmonial-master'); ?></h3>
         <div class='testimonial_form_row'>
-          <label class='testimonial_form_label'>".__("Your Testimonial",'testmonial-master')."</label>
+          <label class='testimonial_form_label'><?php _e("Your Testimonial",'testmonial-master'); ?></label>
           <textarea class='testimonial_form_textarea' name='tm_new_testimonial'></textarea>
         </div>
         <div class='testimonial_form_row'>
-          <label class='testimonial_form_label'>".__("Your Name",'testmonial-master')."</label>
+          <label class='testimonial_form_label'><?php _e("Your Name",'testmonial-master'); ?></label>
           <input type='text' name='tm_who' class='testimonial_form_input'/>
         </div>
         <div class='testimonial_form_row'>
-          <label class='testimonial_form_label'>".__("Your Website",'testmonial-master')."</label>
+          <label class='testimonial_form_label'><?php _e("Your Website",'testmonial-master'); ?></label>
           <input type='text' name='tm_where' class='testimonial_form_input'/>
         </div>
+        <?php do_action('tm_new_testimonial_form'); ?>
         <div class='testimonial_form_row'>
-          <input type='submit' value='".__('Add Testimonial','testmonial-master')."' class='button-primary testimonial_form_button'/>
-          ".wp_nonce_field('add_testimonial','add_testimonial_nonce')."
+          <input type='submit' value='<?php _e('Add Testimonial','testmonial-master'); ?>' class='button-primary testimonial_form_button'/>
+          <?php wp_nonce_field('add_testimonial','add_testimonial_nonce'); ?>
         </div>
-      </form>";
+      </form>
+      <?php
+      $shortcode = ob_get_contents();
+      ob_end_clean();
       return $shortcode;
     }
 }
