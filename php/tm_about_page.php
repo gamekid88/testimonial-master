@@ -62,7 +62,7 @@ class TMAboutPage
       wp_enqueue_script( 'tm_admin_script', plugins_url( '../js/admin.js' , __FILE__ ) );
       ?>
     	<div class="wrap about-wrap">
-      	<h1><?php _e('Welcome To WordPress Developer Toolkit', 'testmonial-master'); ?></h1>
+      	<h1><?php _e('Welcome To Testimonial Master', 'testmonial-master'); ?></h1>
       	<div class="about-text"><?php _e('Thank you for updating!', 'testmonial-master'); ?></div>
       	<h2 class="nav-tab-wrapper">
       		<a href="javascript:tm_setTab(1);" id="tab_1" class="nav-tab nav-tab-active">
