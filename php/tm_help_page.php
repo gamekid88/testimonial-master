@@ -68,16 +68,16 @@ class TMHelpPage
 
 			///Creates the widgets
 			$mlw_tm_version = get_option('mlw_tm_version');
-      add_meta_box("wpss_mrts", 'Need Help?', "tm_plugin_help_box", "mlw_tm_wpss7");
-			add_meta_box("wpss_mrts", 'Support', "mlw_tm_wpss_mrt_meta_box3", "mlw_tm_wpss3");
-			add_meta_box("wpss_mrts", 'My Local Webstop Services', "mlw_tm_dashboard_services", "mlw_tm_wpss6");
-			add_meta_box("wpss_mrts", 'Contribution', "mlw_tm_wpss_mrt_meta_box4", "mlw_tm_wpss4");
-			add_meta_box("wpss_mrts", 'News From My Local Webstop', "mlw_tm_wpss_mrt_meta_box5", "mlw_tm_wpss5");
+      add_meta_box("wpss_mrts", __('Need Help?','testmonial-master'), "tm_plugin_help_box", "mlw_tm_wpss7");
+			add_meta_box("wpss_mrts", __('Support','testmonial-master'), "mlw_tm_wpss_mrt_meta_box3", "mlw_tm_wpss3");
+			add_meta_box("wpss_mrts", __('My Local Webstop Services','testmonial-master'), "mlw_tm_dashboard_services", "mlw_tm_wpss6");
+			add_meta_box("wpss_mrts", __('Contribution','testmonial-master'), "mlw_tm_wpss_mrt_meta_box4", "mlw_tm_wpss4");
+			add_meta_box("wpss_mrts", __('News From My Local Webstop','testmonial-master'), "mlw_tm_wpss_mrt_meta_box5", "mlw_tm_wpss5");
 			?>
 			<div class="wrap">
-				<h2>Testimonial Master Help And Support</h2>
+				<h2><?php _e('Testimonial Master Help And Support','testmonial-master'); ?></h2>
 
-				<h3>Version <?php echo $mlw_tm_version; ?></h3>
+				<h3><?php _e('Version:','testmonial-master'); ?> <?php echo $mlw_tm_version; ?></h3>
 				<?php echo tm_adverts(); ?>
 
 				<div style="float:left; width:50%;" class="inner-sidebar1">
@@ -107,9 +107,9 @@ class TMHelpPage
 function tm_plugin_help_box()
 {
   ?>
-	<p><?php _e('Need help with the plugin? Try any of the following:', 'quiz-master-next'); ?></p>
+	<p><?php _e('Need help with the plugin? Try any of the following:', 'testmonial-master'); ?></p>
 	<ul>
-		<li>Fill out the form in the Support widget to send us an email</li>
+		<li><?php _e('Fill out the form in the Support widget to send us an email','testmonial-master'); ?></li>
 		<li>Fill out the form on our <a href="http://mylocalwebstop.com/contact-us/">Contact Us Page</a></li>
 		<li>Create a topic in the <a href="https://wordpress.org/support/plugin/testimonial-master">WordPress Support Forums</a></li>
 	</ul>
@@ -177,39 +177,38 @@ function mlw_tm_wpss_mrt_meta_box3()
 	<input type='hidden' name='support_email' value='confirmation' />
 	<table>
 	<tr>
-	<td>If there is something you would like to suggest to add or even if you just want
-	to let me know if you like the plugin or not, feel free to use the email form below.</td>
+	<td><?php _e('If you have any suggestions or issues with the plugin, feel free to use the form below!','testmonial-master'); ?></td>
 	</tr>
 	<tr>
 	<td><span name='mlw_support_message' id='mlw_support_message' style="color: red;"><?php echo $support_message; ?></span></td>
 	</tr>
 	<tr>
-	<td align='left'><span style='font-weight:bold;';>Name (Required): </span></td>
+	<td align='left'><span style='font-weight:bold;';><?php _e('Name (Required):','testmonial-master'); ?></span></td>
 	</tr>
 	<tr>
 	<td><input type='text' name='username' value='' /></td>
 	</tr>
 	<tr>
-	<td align='left'><span style='font-weight:bold;';>Email (Required): </span></td>
+	<td align='left'><span style='font-weight:bold;';><?php _e('Email (Required):','testmonial-master'); ?></span></td>
 	</tr>
 	<tr>
 	<td><input type='text' name='email' value='' /></td>
 	</tr>
 	<tr>
-	<td align='left'><span style='font-weight:bold;';>Message (Required): </span></td>
+	<td align='left'><span style='font-weight:bold;';><?php _e('Message (Required):','testmonial-master'); ?> </span></td>
 	</tr>
 	<tr>
 	<td align='left'><TEXTAREA NAME="message" COLS=40 ROWS=6></TEXTAREA></td>
 	</tr>
 	<tr>
-	<td align='left'><input type='submit' class="button-primary" value='Send Email' /></td>
+	<td align='left'><input type='submit' class="button-primary" value='<?php _e('Send Email','testmonial-master'); ?>' /></td>
 	</tr>
 	<tr>
 	<td align='left'></td>
 	</tr>
 	</table>
 	</form>
-  <p>Disclaimer: In order to better assist you, this form will also send some information about your WordPress installation along with your message.</p>
+  <p><?php _e('Disclaimer: In order to better assist you, this form will also send some information about your WordPress installation along with your message.','testmonial-master'); ?></p>
 	</div>
 	<?php
 }
@@ -217,11 +216,11 @@ function mlw_tm_wpss_mrt_meta_box3()
 function mlw_tm_wpss_mrt_meta_box4()
 {
 	?>
-	<p>	Testimonial Master is and always will be a free plugin. I have spent a lot of time and effort developing and maintaining this plugin. If it has been beneficial to your site, please consider supporting this plugin by making a donation.</p>
+	<p><?php _e('Testimonial Master is and always will be a free plugin. I have spent a lot of time and effort developing and maintaining this plugin. If it has been beneficial to your site, please consider supporting this plugin by making a donation.','testmonial-master'); ?></p>
 	<div class="donation">
-		<a href="http://mylocalwebstop.com/downloads/donation-service-payment/" target="_blank" class="button">Donate</a>
+		<a href="http://mylocalwebstop.com/downloads/donation-service-payment/" target="_blank" class="button"><?php _e('Donate','testmonial-master'); ?></a>
 	</div>
-	<p>Thank you to those who have contributed so far!</p>
+	<p><?php _e('Thank you to those who have contributed so far!','testmonial-master'); ?></p>
 	<?php
 }
 function mlw_tm_wpss_mrt_meta_box5()

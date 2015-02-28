@@ -38,6 +38,7 @@ class MLWTestimonialMaster
      * @since 0.2.0
      */
     public $version = '0.2.0';
+    
     /**
   	  * Main Construct Function
   	  *
