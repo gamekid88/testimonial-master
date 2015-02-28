@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+
 /**
 * This class is the main class of the plugin
 *
@@ -61,6 +65,7 @@ class TMShortcodes
 		 */
 		public function all_testimonials($atts)
 		{
+      wp_enqueue_style( 'tm_front_style', plugins_url( '../css/front-end.css' , __FILE__ ) );
 			$shortcode = '';
 			$testimonial_array = array();
       $my_query = new WP_Query( array('post_type' => 'testimonial') );
@@ -68,15 +73,16 @@ class TMShortcodes
     	{
     	  while( $my_query->have_posts() )
     		{
+          $shortcode .= "<div class='testimonial'>";
     	    $my_query->the_post();
-					$shortcode .= '"'.get_the_content().'"<br />';
-					$shortcode .= '~'.get_the_title();
+					$shortcode .= '"'.esc_html(get_the_content()).'"<br />';
+					$shortcode .= '~'.esc_html(get_the_title());
 					$link = get_post_meta( get_the_ID(), 'link', true );
 					if ($link && $link != '')
 					{
-						$shortcode .= ", <a href='$link'>$link</a>";
+						$shortcode .= ", <a href='".esc_url($link)."'>".esc_html($link)."</a>";
 					}
-					$shortcode .= "<br /><br /><hr /><br />";
+          $shortcode .= "</div>";
     	  }
     	}
     	wp_reset_postdata();
@@ -90,6 +96,7 @@ class TMShortcodes
 		 */
 		public function random_testimonials($atts)
 		{
+      wp_enqueue_style( 'tm_front_style', plugins_url( '../css/front-end.css' , __FILE__ ) );
 			$shortcode = '';
 			$testimonial_array = array();
       $my_query = new WP_Query( array('post_type' => 'testimonial') );
@@ -107,15 +114,16 @@ class TMShortcodes
     	  }
     	}
     	wp_reset_postdata();
-
 			$rand_testimonial = array_rand($testimonial_array);
-			$shortcode .= '"'.$rand_testimonial["content"].'"<br />';
-			$shortcode .= '~'.$rand_testimonial["name"];
-			$link = $rand_testimonial["link"];
+      $shortcode .= "<div class='testimonial'>";
+			$shortcode .= '"'.esc_html($testimonial_array[$rand_testimonial]["content"]).'"<br />';
+			$shortcode .= '~'.esc_html($testimonial_array[$rand_testimonial]["name"]);
+			$link = $testimonial_array[$rand_testimonial]["link"];
 			if ($link && $link != '')
 			{
-				$shortcode .= ", <a href='$link'>$link</a>";
+				$shortcode .= ", <a href='".esc_url($link)."'>".esc_html($link)."</a>";
 			}
+      $shortcode .= "</div>";
 
 			return $shortcode;
 		}
