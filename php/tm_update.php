@@ -1,4 +1,7 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /*
 This is the update function for the plugin. When the plugin gets updated, the database changes are done here. This function is placed in the init of wordpress.
 */
@@ -29,11 +32,16 @@ function tm_update()
   			  'post_type' => 'testimonial'
   			);
   			$new_testimonial_id = wp_insert_post( $new_testimonial_args );
-  			add_post_meta( $new_testimonial_id, 'link', $testimonial->url, true );
+  			add_post_meta( $new_testimonial_id, 'link', esc_url_raw($testimonial->url), true );
 			}
-			//$results = $wpdb->query( "DROP TABLE IF EXISTS ".$table_name );
+			$results = $wpdb->query( "DROP TABLE IF EXISTS ".$table_name );
 		}
 		update_option('mlw_tm_version' , $data);
+		if(!isset($_GET['activate-multi']))
+    {
+			wp_safe_redirect( admin_url( 'index.php?page=tm_about' ) );
+			exit;
+    }
 	}
 	if ( ! get_option('mlw_advert_shows'))
 	{
