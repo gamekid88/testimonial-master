@@ -1,10 +1,11 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class TMRandomWidget extends WP_Widget {
 
    	// constructor
     function TMRandomWidget() {
-        parent::WP_Widget(false, $name = __('Testimonial Master Widget', 'mlw_tm_text_domain'));
+        parent::WP_Widget(false, $name = __('Testimonial Master Widget', 'testmonial-master'));
     }
 
     // widget form creation
@@ -17,7 +18,7 @@ class TMRandomWidget extends WP_Widget {
 		}
 		?>
 		<p>
-		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Widget Title', 'mlw_tm_text_domain'); ?></label>
+		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Widget Title', 'testmonial-master'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
 		</p>
 		<?php
@@ -63,12 +64,12 @@ class TMRandomWidget extends WP_Widget {
      	wp_reset_postdata();
 
  			$rand_testimonial = array_rand($testimonial_array);
- 			$shortcode .= '"'.$rand_testimonial["content"].'"<br />';
- 			$shortcode .= '~'.$rand_testimonial["name"];
- 			$link = $rand_testimonial["link"];
+ 			$shortcode .= '"'.esc_html($testimonial_array[$rand_testimonial]["content"]).'"<br />';
+ 			$shortcode .= '~'.esc_html($testimonial_array[$rand_testimonial]["name"]);
+ 			$link = $testimonial_array[$rand_testimonial]["link"];
  			if ($link && $link != '')
  			{
- 				$shortcode .= ", <a href='$link'>$link</a>";
+ 				$shortcode .= ", <a href='".esc_url($link)."'>".esc_html($link)."</a>";
  			}
 
  			echo $shortcode;
