@@ -59,7 +59,7 @@ class MLWTestimonialMaster
       include("php/tm_admin_page.php");
       include("php/tm_shortcodes.php");
       include("php/mlw_tm_update.php");
-      include("php/mlw_tm_widgets.php");
+      include("php/tm_widgets.php");
       include("php/mlw_tm_help.php");
     }
 
@@ -78,7 +78,7 @@ class MLWTestimonialMaster
       add_action('admin_head', array( $this, 'admin_head'), 900);
       add_action('init', array( $this, 'register_post_types'));
       add_action('init', 'mlw_tm_update');
-      add_action('widgets_init', create_function('', 'return register_widget("Mlw_Tm_Random_Widget");'));
+      add_action('widgets_init', create_function('', 'return register_widget("TMRandomWidget");'));
       add_shortcode('mlw_tm_all', 'mlw_tm_all_shortcode');
       add_shortcode('mlw_tm_random', 'mlw_tm_random_shortcode');
     }

@@ -1,17 +1,14 @@
 <?php
-/*
-This is the file that contains all the widgets for the plugin
-*/
 
-class Mlw_Tm_Random_Widget extends WP_Widget {
-   	
+class TMRandomWidget extends WP_Widget {
+
    	// constructor
-    function Mlw_Tm_Random_Widget() {
+    function TMRandomWidget() {
         parent::WP_Widget(false, $name = __('Testimonial Master Widget', 'mlw_tm_text_domain'));
     }
-    
+
     // widget form creation
-    function form($instance) { 
+    function form($instance) {
 	    // Check values
 		if( $instance) {
 	     	$title = esc_attr($instance['title']);
@@ -25,7 +22,7 @@ class Mlw_Tm_Random_Widget extends WP_Widget {
 		</p>
 		<?php
 	}
-	
+
     // widget update
     function update($new_instance, $old_instance) {
         $instance = $old_instance;
@@ -33,7 +30,7 @@ class Mlw_Tm_Random_Widget extends WP_Widget {
       	$instance['title'] = strip_tags($new_instance['title']);
      	return $instance;
     }
-    
+
     // widget display
     function widget($args, $instance) {
         extract( $args );
@@ -46,25 +43,35 @@ class Mlw_Tm_Random_Widget extends WP_Widget {
    		if ( $title ) {
       		echo $before_title . $title . $after_title;
    		}
-   		
-   		global $wpdb;
-		$mlw_tm_all_data = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."mlw_tm_testimonials WHERE deleted=0 ORDER BY RAND() LIMIT 1" );
-		foreach($mlw_tm_all_data as $mlw_tm_data) {
-			$mlw_tm_all_data = $mlw_tm_data;
-			break;
-		}
-		$mlw_tm_widget_display = "";
-		$mlw_tm_widget_display .= '"'.stripslashes(htmlspecialchars_decode($mlw_tm_all_data->testimonial, ENT_QUOTES)).'"';
-		$mlw_tm_widget_display .= "<br />";
-		$mlw_tm_widget_display .= "~ ".htmlspecialchars_decode($mlw_tm_all_data->name, ENT_QUOTES)."";
-		if ( $mlw_tm_all_data->url != "" )
-		{
-			$mlw_tm_widget_display .= ", <a style='color: blue;' href='".$mlw_tm_all_data->url."'>".$mlw_tm_all_data->url."</a>";
-		}
-		
-		echo $mlw_tm_widget_display;
-   		echo '</div>';
-   		echo $after_widget;
+
+   		$shortcode = '';
+ 			$testimonial_array = array();
+       $my_query = new WP_Query( array('post_type' => 'testimonial') );
+     	if( $my_query->have_posts() )
+     	{
+     	  while( $my_query->have_posts() )
+     		{
+     	    $my_query->the_post();
+ 					$testimonial_array[] = array(
+             'id' => get_the_ID(),
+             'name' => get_the_title(),
+             'link' => get_post_meta( get_the_ID(), 'link', true ),
+ 						'content' => get_the_content()
+           );
+     	  }
+     	}
+     	wp_reset_postdata();
+
+ 			$rand_testimonial = array_rand($testimonial_array);
+ 			$shortcode .= '"'.$rand_testimonial["content"].'"<br />';
+ 			$shortcode .= '~'.$rand_testimonial["name"];
+ 			$link = $rand_testimonial["link"];
+ 			if ($link && $link != '')
+ 			{
+ 				$shortcode .= ", <a href='$link'>$link</a>";
+ 			}
+
+ 			echo $shortcode;
     }
 }
 ?>
