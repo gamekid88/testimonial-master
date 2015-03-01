@@ -40,7 +40,7 @@ Testimonial Master is on [GitHub](https://github.com/fpcorso/testimonial-master)
 == Frequently Asked Questions ==
 
 = I have an idea, how do I contact you? =
-Feel free to create an issue on [GitHub](https://github.com/fpcorso/wordpress-developer-toolkit), use the support widget on the help page in the plugin, or use the [My Local Webstop Contact Us Page](http://mylocalwebstop.com/contact-us/)
+Feel free to create an issue on [GitHub](https://github.com/fpcorso/testimonial-master), use the support widget on the help page in the plugin, or use the [My Local Webstop Contact Us Page](http://mylocalwebstop.com/contact-us/)
 
 == Screenshots ==
 
@@ -84,6 +84,9 @@ Feel free to create an issue on [GitHub](https://github.com/fpcorso/wordpress-de
  * Initial Version
 
 == Upgrade Notice ==
+
+= 0.2.0 =
+Upgrade for redesign of entire plugin, new user submission shortcode, and new about update page
 
 = 0.1.6 =
 This update fixes several bugs
