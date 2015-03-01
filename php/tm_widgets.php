@@ -52,7 +52,7 @@ class TMRandomWidget extends WP_Widget {
 
    		$shortcode = '';
  			$testimonial_array = array();
-      $my_query = new WP_Query( array('post_type' => 'testimonial') );
+      $my_query = new WP_Query( array('post_type' => 'testimonial', 'posts_per_page' => -1) );
      	if( $my_query->have_posts() )
      	{
      	  while( $my_query->have_posts() )
