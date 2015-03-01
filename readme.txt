@@ -1,7 +1,7 @@
 === Testimonial Master ===
 Contributors: fpcorso
 Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
-Tags: testimonies, testimonial,
+Tags: testimonies, testimonial, review, user, widget, shortcode
 Requires at least: 3.9.1
 Tested up to: 4.1.1
 Stable tag: 0.2.0
