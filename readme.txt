@@ -1,9 +1,10 @@
 === Testimonial Master ===
 Contributors: fpcorso
-Tags: testimonies, testimonial, 
-Requires at least: 3.7.1
-Tested up to: 3.9.1
-Stable tag: 0.1.8
+Donate link: http://mylocalwebstop.com/downloads/donation-service-payment/
+Tags: testimonies, testimonial, review, user, widget, shortcode
+Requires at least: 3.9.1
+Tested up to: 4.1.1
+Stable tag: 0.2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Use this plugin to enter and display testimonials.
@@ -18,16 +19,12 @@ Showing testimonials on your website helps you to attract and keep new clients/c
 * Shortcode to show all testimonials
 * Shortcode to show a random testimonial
 * Included widget shows a random testimonial
+* Shortcode to allow users to enter a testimonial
 
-Be sure to check out all of our plugins in our Master Suite. Visit our plugins page for details: (http://mylocalwebstop.com/wordpress-plugins/)
-
+= Make Suggestions Or Contribute =
+Testimonial Master is on [GitHub](https://github.com/fpcorso/testimonial-master)! I have plenty of items on my to-do list for this plugin. I would love to hear your feedback so feel free to open issues or comment on any existing ones. Feel free to fork and open pull requests!
 
 == Installation ==
-
-We now offer an installation service to assist you in this process. We will install any or all of our plugins and spend up to 2 hours with you for consultaion and training. Visit our website for details.
-[My Local Webstop Plugin Installation](http://mylocalwebstop.com/product/plugin-installation/)
-
-**Or**
 
 * Navigate to Add New Plugin page within your WordPress
 * Search for Testimonial Master
@@ -42,28 +39,26 @@ We now offer an installation service to assist you in this process. We will inst
 
 == Frequently Asked Questions ==
 
-= What does the option do on that page? =
-On each page, there is a "?" next to the page title. Clicking on it will bring up a small help window that will assist you on that page.
-
-= I'm still having trouble. What do I do? =
-If you still have any trouble, feel free to use the widget on the help page within the plugin to contact me and I will help you.
-
-= I need a lot of help setting up my testimonials, what can you do to help? =
-We now offer a premium support plan that offers priority response, priority feature requests, and includes 1-on-1 training! For details, visit our premium support page: [My Local Webstop Services](http://mylocalwebstop.com/product/plugin-premium-support/)
-
-= Do you offer any 1-on-1 training to assist me in using this plugin? =
-We now offer an installation service that includes 1-on-1 training as well as a monthly support plan that includes 1-on-1 training. For details, visit our services page: [My Local Webstop Services](http://mylocalwebstop.com/services/)
-
 = I have an idea, how do I contact you? =
-Feel free to use the widget on the widget on the help page within the plugin or from the contact page at mylocalwebstop.com.
+Feel free to create an issue on [GitHub](https://github.com/fpcorso/testimonial-master), use the support widget on the help page in the plugin, or use the [My Local Webstop Contact Us Page](http://mylocalwebstop.com/contact-us/)
 
 == Screenshots ==
 
-1. Admin Page
-2. Testimonial Master Shortcode
-3. Testimonial Master Widget
+1. Admin Page (With Advertisement Be Gone Add-On)
+2. Random Shortcode And All Shortcode
+3. Random Testimonial Widget
+4. User Testimonial Submission Shortcode
 
 == Changelog ==
+
+= 0.2.0 (March 1, 2015) =
+ * New Shortcode For Allowing Users To Enter Testimonial
+ * Admin Page Redesign
+ * New Update Page
+ * Now Translation Ready
+ * In Code: Now Uses Custom Post Types
+ * In Code: Rewrote Entire Plugin
+ * In Code: Added Various Hooks And Filters For Extending Plugin
 
 = 0.1.8 (June 21, 2014) =
  * Change Defualt Order To Show Newest First
@@ -89,6 +84,9 @@ Feel free to use the widget on the widget on the help page within the plugin or 
  * Initial Version
 
 == Upgrade Notice ==
+
+= 0.2.0 =
+Upgrade for redesign of entire plugin, new user submission shortcode, and new about update page
 
 = 0.1.6 =
 This update fixes several bugs

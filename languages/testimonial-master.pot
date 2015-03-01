@@ -1,0 +1,230 @@
+# WordPress Blank Pot
+# Copyright (C) 2014 ...
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Blank Pot v1.0.0\n"
+"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
+"POT-Creation-Date: 2015-02-28 13:22-0500\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Your Name <you@example.com>\n"
+"Language-Team: Your Team <translations@example.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
+"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,"
+"_nc:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Generator: Poedit 1.7.3\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: php/tm_about_page.php:65
+msgid "Welcome To Testimonial Master"
+msgstr ""
+
+#: php/tm_about_page.php:66
+msgid "Thank you for updating!"
+msgstr ""
+
+#: php/tm_about_page.php:69
+msgid "What's New!"
+msgstr ""
+
+#: php/tm_about_page.php:71
+msgid "Changelog"
+msgstr ""
+
+#: php/tm_admin_page.php:62 php/tm_help_page.php:63
+msgid "You do not have proper authority to access this page"
+msgstr ""
+
+#: php/tm_admin_page.php:151
+msgid "Available Shortcodes"
+msgstr ""
+
+#: php/tm_admin_page.php:154
+msgid "Outputs all of the testimonials"
+msgstr ""
+
+#: php/tm_admin_page.php:157
+msgid "Outputs one testimonial chosen at random"
+msgstr ""
+
+#: php/tm_admin_page.php:160
+msgid "Adds a form for users to submit testimonials"
+msgstr ""
+
+#: php/tm_admin_page.php:166
+msgid "Your Testimonials"
+msgstr ""
+
+#: php/tm_admin_page.php:170 php/tm_admin_page.php:203
+msgid "Name"
+msgstr ""
+
+#: php/tm_admin_page.php:171 php/tm_admin_page.php:204
+msgid "Url"
+msgstr ""
+
+#: php/tm_admin_page.php:172 php/tm_admin_page.php:205
+#: php/tm_admin_page.php:213 php/tm_admin_page.php:234
+msgid "Testimonial"
+msgstr ""
+
+#: php/tm_admin_page.php:187
+msgid "Edit"
+msgstr ""
+
+#: php/tm_admin_page.php:188
+msgid "Delete"
+msgstr ""
+
+#: php/tm_admin_page.php:190
+msgid "Are you sure?"
+msgstr ""
+
+#: php/tm_admin_page.php:190
+msgid "Yes"
+msgstr ""
+
+#: php/tm_admin_page.php:190
+msgid "No"
+msgstr ""
+
+#: php/tm_admin_page.php:211 php/tm_shortcodes.php:165
+msgid "Add New Testimonial"
+msgstr ""
+
+#: php/tm_admin_page.php:217 php/tm_admin_page.php:238
+msgid "From Who"
+msgstr ""
+
+#: php/tm_admin_page.php:221 php/tm_admin_page.php:242
+msgid "From URL"
+msgstr ""
+
+#: php/tm_admin_page.php:226 php/tm_shortcodes.php:180
+msgid "Add Testimonial"
+msgstr ""
+
+#: php/tm_admin_page.php:232 php/tm_admin_page.php:248
+msgid "Edit Testimonial"
+msgstr ""
+
+#: php/tm_help_page.php:71
+msgid "Need Help?"
+msgstr ""
+
+#: php/tm_help_page.php:72
+msgid "Support"
+msgstr ""
+
+#: php/tm_help_page.php:73
+msgid "My Local Webstop Services"
+msgstr ""
+
+#: php/tm_help_page.php:74
+msgid "Contribution"
+msgstr ""
+
+#: php/tm_help_page.php:75
+msgid "News From My Local Webstop"
+msgstr ""
+
+#: php/tm_help_page.php:78
+msgid "Testimonial Master Help And Support"
+msgstr ""
+
+#: php/tm_help_page.php:80
+msgid "Version:"
+msgstr ""
+
+#: php/tm_help_page.php:114
+msgid "Need help with the plugin? Try any of the following:"
+msgstr ""
+
+#: php/tm_help_page.php:116
+msgid "Fill out the form in the Support widget to send us an email"
+msgstr ""
+
+#: php/tm_help_page.php:194
+msgid ""
+"If you have any suggestions or issues with the plugin, feel free to use the "
+"form below!"
+msgstr ""
+
+#: php/tm_help_page.php:200
+msgid "Name (Required):"
+msgstr ""
+
+#: php/tm_help_page.php:206
+msgid "Email (Required):"
+msgstr ""
+
+#: php/tm_help_page.php:212
+msgid "Message (Required):"
+msgstr ""
+
+#: php/tm_help_page.php:218
+msgid "Send Email"
+msgstr ""
+
+#: php/tm_help_page.php:225
+msgid ""
+"Disclaimer: In order to better assist you, this form will also send some "
+"information about your WordPress installation along with your message."
+msgstr ""
+
+#: php/tm_help_page.php:238
+msgid ""
+"Testimonial Master is and always will be a free plugin. I have spent a lot "
+"of time and effort developing and maintaining this plugin. If it has been "
+"beneficial to your site, please consider supporting this plugin by making a "
+"donation."
+msgstr ""
+
+#: php/tm_help_page.php:240
+msgid "Donate"
+msgstr ""
+
+#: php/tm_help_page.php:242
+msgid "Thank you to those who have contributed so far!"
+msgstr ""
+
+#: php/tm_shortcodes.php:167
+msgid "Your Testimonial"
+msgstr ""
+
+#: php/tm_shortcodes.php:171
+msgid "Your Name"
+msgstr ""
+
+#: php/tm_shortcodes.php:175
+msgid "Your Website"
+msgstr ""
+
+#: php/tm_widgets.php:13
+msgid "Testimonial Master Widget"
+msgstr ""
+
+#: php/tm_widgets.php:26
+msgid "Widget Title"
+msgstr ""
+
+#: testimonial_master.php:146
+msgid "Testimonials"
+msgstr ""
+
+#: testimonial_master.php:147
+msgid "Help"
+msgstr ""
+
+#: testimonial_master.php:150 testimonial_master.php:151
+msgid "TM About"
+msgstr ""

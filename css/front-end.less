@@ -1,0 +1,49 @@
+// out: front-end.css, compress: true
+.testimonial {
+  padding: 20px 5px !important;
+}
+
+.testimonial_form {
+
+  &_row {
+    margin-bottom: 15px;
+  }
+
+  &_row:after {
+    clear:both;
+  }
+
+  &_row:after,
+  &_row:before {
+    display: table;
+    content: " ";
+  }
+
+  &_label {
+    font-weight: bold;
+    float: left;
+    width: 14%;
+    padding-top: 7px;
+  }
+
+  &_input {
+    width:85%;
+    float: left;
+    border-radius: 5px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+  }
+
+  &_textarea {
+    width:85%;
+    float: left;
+    border-radius: 5px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    min-height: 100px;
+  }
+
+  &_button {
+    margin: 30px 5px !important;
+  }
+}
