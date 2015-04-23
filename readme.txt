@@ -86,6 +86,8 @@ Feel free to create an issue on [GitHub](https://github.com/fpcorso/testimonial-
  * Initial Version
 
 == Upgrade Notice ==
+= 0.2.1 =
+Upgrade to ensure compatibility with Wordpress version 4.2
 
 = 0.2.0 =
 Upgrade for redesign of entire plugin, new user submission shortcode, and new about update page
